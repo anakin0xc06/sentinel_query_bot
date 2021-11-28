@@ -6,25 +6,38 @@ import (
 	"log"
 	"strings"
 
+	"github.com/anakin0xc06/sentinel_query_bot/helpers"
+	"github.com/anakin0xc06/sentinel_query_bot/templates"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 	"github.com/mmcdole/gofeed"
-	"github.com/anakin0xc06/sentinel_query_bot/helpers"
-	"github.com/anakin0xc06/sentinel_query_bot/templates"
 	"gopkg.in/telegram-bot-api.v4"
 )
 
 var fp = gofeed.NewParser()
-var MediumFeedURL = fmt.Sprintf("https://medium.com/feed/@%s",config.MediumHandle)
+var MediumFeedURL = fmt.Sprintf("https://medium.com/feed/@%s", config.MediumHandle)
 var RedditFeedURL = fmt.Sprintf("https://www.reddit.com/%s.rss", config.RedditHandle)
 
 // Updtes
 
 func Updates(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	cmd := update.Message.Command()
-	args := update.Message.CommandArguments()
-	fmt.Println(cmd, "|", args)
+	argsStr := update.Message.CommandArguments()
+	fmt.Println(cmd, "|", argsStr)
+	args := strings.Split(argsStr, " ")
+
+	switch args[0] {
+	case "twitter":
+		TwitterUpdates(bot, update)
+	case "medium":
+		MediumUpdates(bot, update)
+	case "reddit":
+		RedditUpdates(bot, update)
+	default:
+		TwitterUpdates(bot, update)
+	}
 }
+
 // MediumUpdates ...
 func MediumUpdates(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	feed, err := fp.ParseURL(MediumFeedURL)

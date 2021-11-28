@@ -77,10 +77,43 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update, text string,
 	return
 }
 
+// SendReplyMessage ...
+func SendReplyMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update, text string,
+	mode string, btns ...tgbotapi.InlineKeyboardMarkup) {
+
+	if update.Message != nil {
+		msg := tgbotapi.NewMessage(GetChatID(update), text)
+		if len(btns) > 0 {
+			msg.ReplyMarkup = btns[0]
+		}
+		msg.ParseMode = tgbotapi.ModeMarkdown
+		if mode != "" {
+			msg.ParseMode = mode
+		}
+		msg.ReplyToMessageID = GetMsgID(update)
+		bot.Send(msg)
+		return
+	}
+	if len(btns) > 0 {
+		msg := tgbotapi.NewEditMessageText(GetChatID(update), GetMsgID(update), text)
+		msg.ReplyMarkup = &btns[0]
+		msg.ParseMode = tgbotapi.ModeMarkdown
+		if mode != "" {
+			msg.ParseMode = mode
+		}
+		bot.Send(msg)
+		return
+	}
+	msg := tgbotapi.NewMessage(GetChatID(update), text)
+	msg.ParseMode = mode
+	bot.Send(msg)
+	return
+}
+
 // GetDVPNNodesList ...
 func GetDVPNNodesList() (types.NodesList, error) {
 	var body types.DVPNListResponse
-	resp, err := http.Get(config.RestApiURL+ "/nodes")
+	resp, err := http.Get(config.RestApiURL + "/nodes")
 	if err != nil {
 		return types.NodesList{}, err
 	}

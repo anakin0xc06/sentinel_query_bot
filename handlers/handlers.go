@@ -39,6 +39,17 @@ func MainHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update,
 		case "restart":
 			StartHandler(bot, update, botDB)
 
+		// Account Handler
+		case "balances":
+			BalanceHandler(bot, update, "")
+
+		// coingecko handler
+
+		case "p":
+			PriceHandler(bot, update)
+		case "pricestats":
+			PriceStatsHandler(bot, update)
+
 		default:
 			text := "Command not available. see /help"
 			helpers.SendMessage(bot, update, text, "html")
@@ -65,7 +76,7 @@ func StartHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update,
 	username := helpers.GetUserName(update)
 	text := fmt.Sprintf(templates.WelcomeGreetMsg, username) + "\n\n" + templates.SelectHelpMsg
 
-	helpers.SendMessage(bot, update, text, tgbotapi.ModeMarkdown)
+	helpers.SendReplyMessage(bot, update, text, tgbotapi.ModeMarkdown)
 	chatID := helpers.GetChatID(update)
 	userUpdate := bson.M{"$set": bson.M{"username": username, "chatid": chatID, "status": "HOME"}}
 	db.UpdateUser(botDB, chatID, userUpdate)
@@ -74,7 +85,7 @@ func StartHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update,
 // HelpHandler ...
 func HelpHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update, botDB *mongo.Collection) {
 	text := templates.HelpMsg
-	helpers.SendMessage(bot, update, text, tgbotapi.ModeHTML)
+	helpers.SendReplyMessage(bot, update, text, tgbotapi.ModeHTML)
 	db.UpdateStatus(botDB, helpers.GetUserName(update),
 		helpers.GetChatID(update), "HELP")
 }
@@ -87,7 +98,7 @@ func HandleSubscribe(bot *tgbotapi.BotAPI, update tgbotapi.Update, botDB *mongo.
 	chatID := helpers.GetChatID(update)
 	userUpdate := bson.M{"$set": bson.M{"username": username, "chatid": chatID, "status": "HOME", "subscribed": true}}
 	db.UpdateUser(botDB, chatID, userUpdate)
-	helpers.SendMessage(bot, update, text, tgbotapi.ModeHTML)
+	helpers.SendReplyMessage(bot, update, text, tgbotapi.ModeHTML)
 }
 
 func HandleUnSubscribe(bot *tgbotapi.BotAPI, update tgbotapi.Update, botDB *mongo.Collection) {
@@ -97,7 +108,7 @@ func HandleUnSubscribe(bot *tgbotapi.BotAPI, update tgbotapi.Update, botDB *mong
 	chatID := helpers.GetChatID(update)
 	userUpdate := bson.M{"$set": bson.M{"username": username, "chatid": chatID, "status": "HOME", "subscribed": false}}
 	db.UpdateUser(botDB, chatID, userUpdate)
-	helpers.SendMessage(bot, update, text, tgbotapi.ModeHTML)
+	helpers.SendReplyMessage(bot, update, text, tgbotapi.ModeHTML)
 }
 
 func HandleRegisterChannel(bot *tgbotapi.BotAPI,

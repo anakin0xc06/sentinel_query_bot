@@ -9,11 +9,11 @@ import (
 // AboutSentinel ...
 func AboutSentinel(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	text := templates.AboutSentinel
-	helpers.SendMessage(bot, update, text, "html")
+	helpers.SendReplyMessage(bot, update, text, tgbotapi.ModeHTML)
 }
 
 // AboutBot ...
 func AboutBot(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	text := templates.AboutBot
-	helpers.SendMessage(bot, update, text, "html")
+	helpers.SendReplyMessage(bot, update, text, tgbotapi.ModeHTML)
 }

@@ -78,7 +78,9 @@ func ListenAndNotifyTweets(bot *tgbotapi.BotAPI, stream *twitter.Stream,
 
 	demux := twitter.NewSwitchDemux()
 	demux.Tweet = func(tweet *twitter.Tweet) {
+		fmt.Println("tweet", tweet.Text)
 		if strings.ToLower(tweet.User.ScreenName) != strings.ToLower(config.TwitterHandle) {
+			fmt.Println("different screen name: ", tweet.User.ScreenName)
 			return
 		}
 		text := fmt.Sprintf(templates.TwitterMsg, tweet.Text,

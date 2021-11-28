@@ -9,6 +9,13 @@ var (
 	TwitterID     = os.Getenv("TWITTER_ID")     // "921550402268606465"
 	MediumHandle  = os.Getenv("MEDIUM_HANDLE")  // "sentinel"
 	RedditHandle  = os.Getenv("REDDIT_HANDLE")  // "r/SENT"
+	CoingeckoID   = os.Getenv("COINGECKO_ID")   // sentinel
+
+	// coin details
+	CoinDecimals     = 6
+	CoinDenom        = "udvpn"
+	CoinDisplayDenom = "DVPN"
+	AddressPrefix    = "sent"
 )
 
 // Twitter Config
