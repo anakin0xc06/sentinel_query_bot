@@ -70,6 +70,9 @@ func BalanceHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update, address string
 		}
 		text += b
 	}
+	if len(balances.Balances) == 0 {
+		text += "\nNo Available Balances\n"
+	}
 	helpers.SendReplyMessage(bot, update, text, tgbotapi.ModeHTML)
 }
 
