@@ -27,19 +27,28 @@ var (
 	AboutBot = `<b>Sentinel Query Bot</b>
 
 	This bot used to query sentinel network 
+     - query price of sentinel dvpn
+     - query balances of sentinel account
+
+    comming soon:
+     - delegations of address 
+     - votes/proposals of address
+     - validator updates to saved accounts
      
-    developed by daksha validator team.`
+    developed by <b>Daksha Validator Team</b>.`
 
 	// Help template
 
 	HelpMsg = `
-		<b>Here are the available commands and their utility</b>
+	<b>Here are the available commands and their utility</b>
 
-		1. /subscribe - subscribe to sentinel network social media updates
-		2. /unsubscribe - unsubscribe updates
-		3. /sentinel - learn about sentinel network
-		4. /about - about bot
-	`
+	1. /subscribe - subscribe to sentinel network social media updates
+	2. /unsubscribe - unsubscribe updates
+	3. /sentinel - learn about sentinel network
+	4. /p - current price of sentinel dvpn from coingecko 
+	5. /pricestats - price statistics of sentinel dvpn from coingecko
+	6. /balances [addr] - get balances of address 
+	7. /about - about bot`
 
 	// social media updates templates
 
