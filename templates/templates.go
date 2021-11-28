@@ -26,16 +26,21 @@ var (
 	// About Bot
 	AboutBot = `<b>Sentinel Query Bot</b>
 
-	This bot used to query sentinel network 
-     - query price of sentinel dvpn
+	Using this bot we can query data from sentinel network
+     - subscribe and get social media updates
+        - twitter, medium & reddit 
+     - query usd price of sentinel $DVPN
      - query balances of sentinel account
 
     comming soon:
-     - delegations of address 
+     - delegations & rewards of address 
      - votes/proposals of address
      - validator updates to saved accounts
      
-    developed by <b>Daksha Validator Team</b>.`
+    Developed by <b>Daksha Validator Team</b>
+    <a href="https://www.mintscan.io/sentinel/validators/sentvaloper1am0pe8lujuxk7ty72ee3gzfa9rzaqqgatk0xsu">Daksha Validator - Mintscan</a>
+    <a href="https://github.com/dakshavalidator">Daksha Validator - Github</a>
+    <a href="https://twitter.com/dakshavalidator">Daksha Validator - Twitter</a>.`
 
 	// Help template
 
